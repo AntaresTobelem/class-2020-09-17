@@ -6,6 +6,7 @@ output: html_document
 
 Go to https://registrar.fas.harvard.edu/faculty-staff/courses/enrollment and scroll down to "Access the Current Course Enrollment Numbers." Click on that to download the Excel file. Create a folder in your project called `raw_data`. Move the Excel file into that folder. Be cool and do these things from the command line!
 
+
 Load **tidyverse**, **readxl** and **janitor** into your setup chunk. You may need to install the packages **readxl** and **janitor** if you haven't already.
 
 ```{r setup, include=FALSE}
@@ -21,6 +22,16 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Once you have finished cleaning your data, figure out the course with the highest enrollment. And figure out how many students are enrolled in Gov 50. If you get a number much lower than 151, you have done something wrong . . .
 
+```{r}
+setwd("/Users/tobelemantares/OneDrive/Antares/Documents/Schools/Harvard University/04 Fourth Year/01 Gov 50/Projects/class-2020-09-17/raw_data/")
+raw <- read_excel("class_enrollment.xlsx", skip = 3)
+en_fall_2020 <- raw %>%
+  select("Course Title", "Course Name", "UGrad", "Course Department") %>%
+  filter(UGrad >= 10) %>%
+  drop_na() %>%
+  arrange(desc(UGrad))
+en_fall_2020
+```
 
 
 
